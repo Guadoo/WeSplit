@@ -27,6 +27,16 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var isTipZero: Bool
+    
+    {
+        if tipPercentage == 4 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -37,14 +47,14 @@ struct ContentView: View {
                     
                     TextField("Number of people", text: $numberOfPeople)
                         .keyboardType(.decimalPad)
-                    
+//-----------------------------------------------------------------------------
+//                    Change number of people input by picker
+//-----------------------------------------------------------------------------
 //                    Picker("Number of people", selection: $numberOfPeople) {
 //                        ForEach(2 ..< 100) {
 //                            Text("\($0) people")
 //                        }
 //                    }
-                    
-                    
                 }
                 
                 Section(header: Text("How much tip do you want to leave?")) {
@@ -58,6 +68,7 @@ struct ContentView: View {
                 
                 Section(header: Text("Total Amount with tip")) {
                     Text("$ \(totalPerPerson * Double(Int(numberOfPeople) ?? 0 + 2), specifier: "%.2f")")
+                        .foregroundColor(isTipZero ? .red : .black)
                 }
                 
                 
